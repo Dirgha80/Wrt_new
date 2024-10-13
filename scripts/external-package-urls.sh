@@ -202,4 +202,22 @@ wget --no-check-certificate -i output_url.txt -nv -P packages
     done
 
     rm -f "$PACKAGES_GZ" "$PACKAGES_FILE"
+    # Mihomo
+mihomo_api="https://api.github.com/repos/rtaserver/OpenWrt-mihomo-Mod/releases"
+mihomo_file="mihomo_${ARCH_3}"
+mihomo_file_down="$(curl -s ${mihomo_api} | grep "browser_download_url" | grep -oE "https.*${mihomo_file}.*.tar.gz" | head -n 1)"
+
+echo "Downloading Mihomo package"
+wget "${mihomo_file_down}" -nv -P packages
+if [ "$?" -ne 0 ]; then
+    echo "Error: Failed to download Mihomo package."
+    exit 1
+fi
+
+# Extract Mihomo package
+tar -xzvf packages/"mihomo_${ARCH_3}.tar.gz" -C packages && rm packages/"mihomo_${ARCH_3}.tar.gz"
+if [ "$?" -ne 0 ]; then
+    echo "Error: Failed to extract Mihomo package."
+    exit 1
+fi
 }
