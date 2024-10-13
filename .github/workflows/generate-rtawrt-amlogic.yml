@@ -433,7 +433,7 @@ jobs:
           echo "status=success" >> $GITHUB_OUTPUT
 
       - name: Upload Firmware to Release
-        uses: svenstaro/upload-release-action@v3
+        uses: svenstaro/upload-release-action@v2
         if: ${{ steps.prep_upload.outputs.status }} == 'success' && !cancelled()
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -446,7 +446,7 @@ jobs:
           body: |
             ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/rtaserver/RTA-WRT/${{ env.RELEASE_TAG }}/total?style=for-the-badge&logo=Openwrt)
 
-            ### RTA-WRT ${{ env.BASE }}-${{ env.BRANCH }} Image information
+            ### Hj-WRT ${{ env.BASE }}-${{ env.BRANCH }} Image information
             Build date: ${{ env.DATETIME }}
             
             - Default IP: 192.168.1.1
